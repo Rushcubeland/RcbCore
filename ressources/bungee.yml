@@ -1,0 +1,4 @@
+name: RcbCore
+author: didi955
+version: 0.1.5
+main: fr.rushcubeland.rcbcore.bungee.RcbAPI
