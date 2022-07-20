@@ -8,14 +8,21 @@ import fr.rushcubeland.commons.rank.RankUnit;
 import fr.rushcubeland.rcbcore.bukkit.RcbAPI;
 import fr.rushcubeland.rcbcore.bukkit.friends.FriendsGUI;
 import fr.rushcubeland.rcbcore.bukkit.mod.ModModerator;
+import fr.rushcubeland.rcbcore.bukkit.tools.ItemBuilder;
 import fr.rushcubeland.rcbcore.bukkit.tools.PacketReader;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
@@ -134,6 +141,35 @@ public class JoinEvent implements Listener {
             permissionMap.put(player.getUniqueId(), player.addAttachment(RcbAPI.getInstance()));
         }
         return permissionMap.get(player.getUniqueId());
+    }
+
+    public static void giveLobbyJoinItems(Player player){
+        ItemStack menup = new ItemBuilder(Material.COMPASS).setName("§6Menu Principal").setLore("§f ", "").toItemStack();
+        menup.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+        ItemMeta menupm = menup.getItemMeta();
+        if (menupm != null) {
+            menupm.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+        menup.setItemMeta(menupm);
+
+        ItemStack settings = new ItemBuilder(Material.COMPARATOR).setName("§cPréférences").setLore("§f ", "").toItemStack();
+
+        ItemStack magicClock = new ItemBuilder(Material.CLOCK).setName("§7Ombre de Tartare: §cDésactivé").setLore("§f ", "").toItemStack();
+
+        ItemStack profil = new ItemBuilder(Material.PLAYER_HEAD).setName("§eVotre profil").setLore("§f ", "").toItemStack();
+        SkullMeta profilm = (SkullMeta) profil.getItemMeta();
+        if (profilm != null) {
+            profilm.setOwningPlayer(player);
+        }
+        profil.setItemMeta(profilm);
+
+        ItemStack amis = new ItemBuilder(Material.PUFFERFISH).setName("§eAmis").setLore("§f ", "").removeFlags().toItemStack();
+
+        player.getInventory().setItem(0, menup);
+        player.getInventory().setItem(4, magicClock);
+        player.getInventory().setItem(8, settings);
+        player.getInventory().setItem(1, profil);
+        player.getInventory().setItem(6, amis);
     }
 
 }

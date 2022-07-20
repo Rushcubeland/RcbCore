@@ -1,6 +1,9 @@
 package fr.rushcubeland.rcbcore.bukkit.mod;
 
 import fr.rushcubeland.rcbcore.bukkit.RcbAPI;
+import fr.rushcubeland.rcbcore.bukkit.listeners.JoinEvent;
+import fr.rushcubeland.rcbcore.bukkit.network.ServerGroup;
+import fr.rushcubeland.rcbcore.bukkit.network.ServerUnit;
 import fr.rushcubeland.rcbcore.bukkit.tools.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 public class ModModerator {
@@ -54,7 +58,9 @@ public class ModModerator {
             player.getInventory().clear();
             ItemStack kb = new ItemBuilder(Material.WOODEN_SWORD).setName("§aEpée de KB").setInfinityDurability().toItemStack();
             ItemMeta meta = kb.getItemMeta();
-            meta.addEnchant(Enchantment.KNOCKBACK, 2, true);
+            if (meta != null) {
+                meta.addEnchant(Enchantment.KNOCKBACK, 2, true);
+            }
             kb.setItemMeta(meta);
             player.getInventory().setItem(1, kb);
         }
@@ -63,8 +69,16 @@ public class ModModerator {
 
     public static void deleteTools(String targetUUID){
         Player player = Bukkit.getPlayer(UUID.fromString(targetUUID));
-        if(player != null){
-            player.getInventory().clear();
+        if(player == null){
+            return;
+        }
+        player.getInventory().clear();
+        Optional<ServerUnit> optional = ServerUnit.getByPort(player.getServer().getPort());
+        if(optional.isPresent()){
+            ServerUnit serverUnit = optional.get();
+            if(serverUnit.getServerGroup().equals(ServerGroup.Lobby)){
+                JoinEvent.giveLobbyJoinItems(player);
+            }
         }
     }
 

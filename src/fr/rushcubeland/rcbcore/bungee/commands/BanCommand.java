@@ -79,7 +79,6 @@ public class BanCommand extends Command {
                 duration = Integer.parseInt(args[1].split(":")[0]);
             } catch (NumberFormatException e) {
                 sender.sendMessage(new TextComponent("§cLa valeur 'durée' doit être un nombre !"));
-
                 return;
             }
             if (!TimeUnit.existFromShortcut(args[1].split(":")[1])) {

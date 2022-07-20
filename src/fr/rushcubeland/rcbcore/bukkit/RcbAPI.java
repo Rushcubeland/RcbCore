@@ -35,7 +35,6 @@ public class RcbAPI extends JavaPlugin {
     private Tablist tablist;
 
     public Map<Player, ScoreboardSign> boards = new HashMap<>();
-
     @Override
     public void onEnable() {
         instance = this;
@@ -131,7 +130,7 @@ public class RcbAPI extends JavaPlugin {
         } catch (AccountNotFoundException exception) {
             exception.printStackTrace();
             player.kickPlayer("Votre compte n'a pas été trouvé, veuillez contacter un administrateur.");
-           
+
         }
         return account;
     }

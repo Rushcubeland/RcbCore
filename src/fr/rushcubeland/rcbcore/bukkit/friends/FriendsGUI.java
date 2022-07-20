@@ -29,7 +29,6 @@ public class FriendsGUI {
             player.openInventory(invCache.get(player));
             return;
         }
-
         generateInv(player);
         openFriendsGUI(player);
     }
@@ -103,14 +102,16 @@ public class FriendsGUI {
 
                                 @Override
                                 public void onQueryError(Exception e) {
-
+                                    e.printStackTrace();
+                                    player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
                                 }
                             });
                         }
 
                         @Override
                         public void onQueryError(Exception e) {
-
+                            e.printStackTrace();
+                            player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
                         }
                     });
 
@@ -127,7 +128,6 @@ public class FriendsGUI {
                 player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
             }
         });
-
 
     }
 

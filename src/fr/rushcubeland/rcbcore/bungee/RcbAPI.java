@@ -62,6 +62,7 @@ public class RcbAPI extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ProxyPing());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ServerConnect());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new OnChat());
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new ServerKick());
 
         ServerGroup.initServerGroup();
 
