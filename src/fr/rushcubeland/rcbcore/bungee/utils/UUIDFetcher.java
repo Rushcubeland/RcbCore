@@ -1,4 +1,4 @@
-package fr.rushcubeland.commons.utils;
+package fr.rushcubeland.rcbcore.bungee.utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,6 +9,9 @@ import java.util.UUID;
 
 public class UUIDFetcher {
 
+    public UUIDFetcher() {
+        throw new UnsupportedOperationException("Utils class should not be instancied");
+    }
 
     public static String insertDashUUID(String uuid) {
         StringBuilder sb = new StringBuilder(uuid);
@@ -27,6 +30,7 @@ public class UUIDFetcher {
         return uuid.replaceAll("-", "");
     }
 
+
     public static String getUUIDFromName(String name){
         try {
             URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);
@@ -37,7 +41,8 @@ public class UUIDFetcher {
             }
             return insertDashUUID(jsonObject.get("id").getAsString());
 
-        } catch (Exception ignored){
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return null;
     }
@@ -54,8 +59,10 @@ public class UUIDFetcher {
             }
             return jsonObject.get("name").getAsString();
 
-        } catch (Exception ignored){
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return null;
     }
+
 }

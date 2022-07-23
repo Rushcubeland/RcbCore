@@ -106,6 +106,10 @@ public class AccountsSender {
                     accounts.add(bucket);
                     AFriends account = bucket.get();
                     if (account != null) {
+                        PreparedStatement preparedStatement2 = connection.prepareStatement(
+                                "DELETE FROM Friends WHERE uuid=?");
+                        preparedStatement2.setString(1, account.getUuid().toString());
+                        preparedStatement2.executeUpdate();
                         for(UUID uuid : account.getFriends()){
                             preparedStatement.setString(1, account.getUuid().toString());
                             preparedStatement.setString(2, uuid.toString());
@@ -121,7 +125,9 @@ public class AccountsSender {
                     }
                     accounts.clear();
                 }
+                connection.commit();
             }
+
             catch (SQLException exception){
                 exception.printStackTrace();
                 try {
@@ -181,6 +187,7 @@ public class AccountsSender {
                     }
                     accounts.clear();
                 }
+                connection.commit();
             }
             catch (SQLException exception){
                 exception.printStackTrace();

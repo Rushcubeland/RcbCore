@@ -2,7 +2,7 @@ package fr.rushcubeland.commons.data.sql;
 
 public enum DatabaseManager {
 
-    Main_BDD(new DatabaseCredentials("127.0.0.1", "dylan", "*****", "rcb_core", 3306));
+    Main_BDD(new DatabaseCredentials("127.0.0.1", "dylan", "******", "rcb_core", 3306));
 
     private final DatabaseAccess databaseAccess;
 

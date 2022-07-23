@@ -1,7 +1,8 @@
 package fr.rushcubeland.rcbcore.bungee.commands;
 
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.commons.utils.MessageUtil;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.maintenance.Maintenance;
 import fr.rushcubeland.rcbcore.bungee.maintenance.MaintenanceMode;
 import net.md_5.bungee.api.CommandSender;
@@ -26,7 +27,7 @@ public class MaintenanceCommand extends Command {
         if(sender instanceof ProxiedPlayer){
             ProxiedPlayer player = (ProxiedPlayer) sender;
             if(!player.hasPermission(PermissionsUnit.MAINTENANCE.getPermission()) && !player.hasPermission(PermissionsUnit.ALL.getPermission())){
-                player.sendMessage(new TextComponent("§cVous n'avez pas la permission d'utiliser cette commande !"));
+                player.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
                 return;
             }
             if(args.length == 0){

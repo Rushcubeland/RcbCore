@@ -70,12 +70,6 @@ public class JoinEvent implements Listener {
                 }
                 taskFriendGUIGeneration(player);
             }
-
-            @Override
-            public void onQueryError(Exception e) {
-                e.printStackTrace();
-                player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
-            }
         });
     }
 
@@ -122,11 +116,6 @@ public class JoinEvent implements Listener {
                             }
                         }
                     }
-                }
-                @Override
-                public void onQueryError(Exception e) {
-                    e.printStackTrace();
-                    player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
                 }
             });
         }

@@ -166,8 +166,6 @@ public class ClickEvent implements Listener {
                 if(e.getCurrentItem().getType().equals(Material.ACACIA_DOOR)){
                     player.closeInventory();
                 }
-                if(e.getCurrentItem().getType().equals(Material.PLAYER_HEAD)){
-                }
                 if(e.getCurrentItem().getType().equals(Material.PAPER)){
                     SanctionGUI.openMsgGui(player, targetname);
                 }

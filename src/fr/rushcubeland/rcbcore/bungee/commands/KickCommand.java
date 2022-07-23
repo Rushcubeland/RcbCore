@@ -1,6 +1,7 @@
 package fr.rushcubeland.rcbcore.bungee.commands;
 
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -21,7 +22,7 @@ public class KickCommand extends Command {
         if(sender instanceof ProxiedPlayer){
             ProxiedPlayer player = (ProxiedPlayer) sender;
             if(!player.hasPermission(PermissionsUnit.KICK.getPermission()) && !player.hasPermission(PermissionsUnit.ALL.getPermission())){
-                sender.sendMessage(new TextComponent("§cVous n'avez pas la permission de faire ceci !"));
+                sender.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
                 return;
             }
             if(args.length < 1){
@@ -32,7 +33,7 @@ public class KickCommand extends Command {
             if(args.length == 1){
                 ProxiedPlayer target = ProxyServer.getInstance().getPlayer(args[0]);
                 if(target == null){
-                    player.sendMessage(new TextComponent("§cCe joueur n'est pas connecté !"));
+                    player.sendMessage(new TextComponent(MessageUtil.PLAYER_NOT_ONLINE.getMessage()));
                     return;
                 }
                 target.disconnect(new TextComponent("§cVous avez été kick !"));
@@ -44,7 +45,7 @@ public class KickCommand extends Command {
             if(args.length > 1){
                 ProxiedPlayer target = ProxyServer.getInstance().getPlayer(args[0]);
                 if(target == null){
-                    player.sendMessage(new TextComponent("§cCe joueur n'est pas connecté !"));
+                    player.sendMessage(new TextComponent(MessageUtil.PLAYER_NOT_ONLINE.getMessage()));
                     return;
                 }
                 target.disconnect(new TextComponent("§6Vous avez été §ckick !\n  \n§eRaison: §c" + reason));

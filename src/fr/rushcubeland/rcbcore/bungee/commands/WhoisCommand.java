@@ -4,6 +4,7 @@ import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.data.exceptions.AccountNotFoundException;
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
 import fr.rushcubeland.commons.protocol.ProtocolVersion;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import fr.rushcubeland.rcbcore.bungee.mod.ModModerator;
 import fr.rushcubeland.rcbcore.bungee.provider.AccountProvider;
@@ -31,7 +32,7 @@ public class WhoisCommand extends Command {
         if(sender instanceof ProxiedPlayer){
             ProxiedPlayer player = (ProxiedPlayer) sender;
             if(!player.hasPermission(PermissionsUnit.WHOIS.getPermission()) && !player.hasPermission(PermissionsUnit.ALL.getPermission())){
-                player.sendMessage(new TextComponent("§cVous n'avez pas la permission de faire ceci !"));
+                player.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
                 return;
             }
             if(args.length < 1){

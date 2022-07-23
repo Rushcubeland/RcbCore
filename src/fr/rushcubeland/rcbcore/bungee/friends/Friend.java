@@ -5,7 +5,7 @@ import fr.rushcubeland.commons.AOptions;
 import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.options.OptionUnit;
 import fr.rushcubeland.commons.rank.RankUnit;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.BungeeSend;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import fr.rushcubeland.rcbcore.bungee.provider.FriendsProvider;
@@ -42,7 +42,7 @@ public class Friend {
             if(ProxyServer.getInstance().getPlayer(targetUUID) != null){
                 ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new TextComponent("§d[Amis] §e" + account.getRank().getPrefix() + player.getName() + " §cvous a retiré de sa liste d'amis !"));
             }
-            player.sendMessage(new TextComponent("§d[Amis] §cVous avez retiré §e" + account2.getRank().getPrefix() + account2.getRank().getPrefix() + targetName + " §cde votre liste d'amis !"));
+            player.sendMessage(new TextComponent("§d[Amis] §cVous avez retiré §e" + account2.getRank().getPrefix()  + targetName + " §cde votre liste d'amis !"));
             final FriendsProvider friendsProvider2 = new FriendsProvider(targetUUID);
             friendsProvider2.sendFriendsToRedis(aFriends2);
             final FriendsProvider friendsProvider = new FriendsProvider(player);

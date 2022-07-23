@@ -3,6 +3,7 @@ package fr.rushcubeland.rcbcore.bungee.commands;
 import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
 import fr.rushcubeland.commons.rank.RankUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import fr.rushcubeland.rcbcore.bungee.mod.ModModerator;
 import net.md_5.bungee.api.CommandSender;
@@ -30,7 +31,7 @@ public class StaffListCommand extends Command {
         if(sender instanceof ProxiedPlayer){
             ProxiedPlayer player = (ProxiedPlayer) sender;
             if(!player.hasPermission(PermissionsUnit.STAFF_LIST.getPermission()) && !player.hasPermission(PermissionsUnit.ALL.getPermission())){
-                player.sendMessage(new TextComponent("§cVous n'avez pas la permission de faire ceci !"));
+                player.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
                 return;
             }
 

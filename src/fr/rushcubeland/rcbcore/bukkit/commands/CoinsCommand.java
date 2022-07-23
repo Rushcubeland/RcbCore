@@ -20,12 +20,6 @@ public class CoinsCommand implements CommandExecutor {
                     Account account = (Account) result;
                     player.sendMessage("§6Votre solde de §eCoins §6est de: §c" + account.getCoins() + " §e⛁");
                 }
-
-                @Override
-                public void onQueryError(Exception e) {
-                    e.printStackTrace();
-                    player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
-                }
             });
         }
         return false;

@@ -4,7 +4,8 @@ import fr.rushcubeland.commons.AFriends;
 import fr.rushcubeland.commons.AOptions;
 import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.options.OptionUnit;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.commons.utils.MessageUtil;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -66,7 +67,7 @@ public class MPCommand extends Command {
                     }
                     else
                     {
-                        player.sendMessage(new TextComponent("§cCe joueur n'est pas connecté !"));
+                        player.sendMessage(new TextComponent(MessageUtil.PLAYER_NOT_ONLINE.getMessage()));
                     }
                 }
                 else

@@ -6,6 +6,7 @@ import fr.rushcubeland.commons.data.exceptions.AccountNotFoundException;
 import fr.rushcubeland.commons.data.redis.RedisAccess;
 import fr.rushcubeland.commons.data.sql.DatabaseManager;
 import fr.rushcubeland.commons.data.sql.SQL;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bukkit.commands.*;
 import fr.rushcubeland.rcbcore.bukkit.friends.FriendsGUIUpdater;
 import fr.rushcubeland.rcbcore.bukkit.listeners.*;
@@ -129,8 +130,7 @@ public class RcbAPI extends JavaPlugin {
 
         } catch (AccountNotFoundException exception) {
             exception.printStackTrace();
-            player.kickPlayer("Votre compte n'a pas été trouvé, veuillez contacter un administrateur.");
-
+            player.kickPlayer(MessageUtil.ACCOUNT_NOT_FOUND.getMessage());
         }
         return account;
     }
@@ -148,11 +148,8 @@ public class RcbAPI extends JavaPlugin {
                     callback.onQueryComplete(account);
                 });
 
-
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -172,9 +169,7 @@ public class RcbAPI extends JavaPlugin {
 
 
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -189,15 +184,11 @@ public class RcbAPI extends JavaPlugin {
                 final OptionsProvider accountProvider = new OptionsProvider(player);
                 account = accountProvider.getAccount();
 
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryComplete(account);
-                });
+                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callback.onQueryComplete(account));
 
 
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -218,9 +209,7 @@ public class RcbAPI extends JavaPlugin {
 
 
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -241,9 +230,7 @@ public class RcbAPI extends JavaPlugin {
 
 
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -264,9 +251,7 @@ public class RcbAPI extends JavaPlugin {
 
 
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -287,9 +272,7 @@ public class RcbAPI extends JavaPlugin {
 
 
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -308,11 +291,8 @@ public class RcbAPI extends JavaPlugin {
                     callback.onQueryComplete(account);
                 });
 
-
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -331,11 +311,8 @@ public class RcbAPI extends JavaPlugin {
                     callback.onQueryComplete(account);
                 });
 
-
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -354,11 +331,8 @@ public class RcbAPI extends JavaPlugin {
                     callback.onQueryComplete(account);
                 });
 
-
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -377,11 +351,8 @@ public class RcbAPI extends JavaPlugin {
                     callback.onQueryComplete(account);
                 });
 
-
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }
@@ -400,11 +371,8 @@ public class RcbAPI extends JavaPlugin {
                     callback.onQueryComplete(account);
                 });
 
-
             } catch (AccountNotFoundException exception) {
-                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> {
-                    callback.onQueryError(exception);
-                });
+                exception.printStackTrace();
             }
         });
     }

@@ -1,7 +1,7 @@
 package fr.rushcubeland.rcbcore.bungee.commands;
 
 import fr.rushcubeland.commons.AFriends;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import fr.rushcubeland.rcbcore.bungee.friends.Friend;
 import net.md_5.bungee.api.CommandSender;

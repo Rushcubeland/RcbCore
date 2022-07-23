@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bukkit.RcbAPI;
 import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Bukkit;

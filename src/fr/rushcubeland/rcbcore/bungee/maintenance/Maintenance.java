@@ -2,7 +2,7 @@ package fr.rushcubeland.rcbcore.bungee.maintenance;
 
 import fr.rushcubeland.commons.data.sql.DatabaseManager;
 import fr.rushcubeland.commons.data.sql.SQL;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.sql.Connection;

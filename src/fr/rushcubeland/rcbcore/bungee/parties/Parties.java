@@ -117,8 +117,8 @@ public class Parties {
         TextComponent deny = new TextComponent("§c[Refuser]");
         deny.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/group deny " + sender.getDisplayName()));
         deny.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,  new Text("/group deny " + sender.getDisplayName())));
-        componentBuilder.append(accept).reset();
-        componentBuilder.append(new TextComponent("      "));
+        componentBuilder.append(accept);
+        componentBuilder.append(new TextComponent("      ")).reset();
         componentBuilder.append(deny);
         target.sendMessage(componentBuilder.create());
         target.sendMessage(new TextComponent("§e-----------------------------"));
