@@ -74,12 +74,6 @@ public class JoinEvent implements Listener {
     }
 
     private void initPermissions(Player player, RankUnit rank){
-        Set<PermissionAttachmentInfo> permissions = new HashSet<>(player.getEffectivePermissions());
-        for (PermissionAttachmentInfo permissionInfo : permissions) {
-            String permission = permissionInfo.getPermission();
-
-            getPermissionAttachment(player).setPermission(permission, false);
-        }
         for(PermissionsUnit permUnit : PermissionsUnit.values()){
             getPermissionAttachment(player).setPermission(permUnit.getPermission(), false);
         }
