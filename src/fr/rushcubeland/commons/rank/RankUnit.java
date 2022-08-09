@@ -7,6 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public enum RankUnit {
 
@@ -30,10 +31,11 @@ public enum RankUnit {
     private final int power;
     private final String prefix;
     private final ChatColor color;
-    private final ArrayList<String> permissions = new ArrayList<>();
+    private ArrayList<String> permissions = new ArrayList<>();
 
-    public static final int FIRST_LEVEL_RANK = 45;
+    public static final int FIRST_LEVEL_RANK = 50;
     public static final int FIRST_LEVEL_SPECIAL_RANK = 38;
+    public static final int FIRST_LEVEL_STAFF_RANK= 20;
 
 
     RankUnit(String name, int power, String prefix, ChatColor color) {
@@ -84,6 +86,10 @@ public enum RankUnit {
 
     public ArrayList<String> getPermissions(){
         return this.permissions;
+    }
+
+    public void setPermissions(ArrayList<String> permissions) {
+        this.permissions = permissions;
     }
 
     private ArrayList<String> getDataofRankPermissionsFromMySQL(){
@@ -142,9 +148,7 @@ public enum RankUnit {
 
     private void getTasks(){
         ArrayList<String> dataRankperms = getDataofRankPermissionsFromMySQL();
-        for(String perm : dataRankperms){
-            addPermission(perm);
-        }
+        setPermissions(dataRankperms);
     }
 
     public void onDisable(){

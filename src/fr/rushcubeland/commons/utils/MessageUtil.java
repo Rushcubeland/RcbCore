@@ -2,7 +2,7 @@ package fr.rushcubeland.commons.utils;
 
 public enum MessageUtil {
 
-    ACCOUNT_NOT_FOUND("§cVotre compte n'a pas été trouvé, veuillez rapporter l'erreur à un membre du staff."),
+    ACCOUNT_NOT_FOUND("§cUne erreur est survenue en essayant de récupérer votre compte, veuillez rapporter l'erreur à un membre du staff."),
     NO_PERM("§cVous n'avez pas la permission de faire ceci !"),
     SPECIFY_PLAYER("§cVeuillez spécifier un joueur !"),
     SPECIFY_VALID_PLAYER("§cVeuillez spécifier un joueur valide !"),

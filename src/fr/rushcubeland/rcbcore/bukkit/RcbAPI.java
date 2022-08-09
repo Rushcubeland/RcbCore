@@ -6,6 +6,7 @@ import fr.rushcubeland.commons.data.exceptions.AccountNotFoundException;
 import fr.rushcubeland.commons.data.redis.RedisAccess;
 import fr.rushcubeland.commons.data.sql.DatabaseManager;
 import fr.rushcubeland.commons.data.sql.SQL;
+import fr.rushcubeland.commons.rank.RankUnit;
 import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bukkit.commands.*;
 import fr.rushcubeland.rcbcore.bukkit.friends.FriendsGUIUpdater;
@@ -23,6 +24,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +55,7 @@ public class RcbAPI extends JavaPlugin {
         registerCommands();
 
         ServerGroup.initServerGroup();
+
         Tablist tablist = new Tablist();
         tablist.initTabListTeam();
         this.tablist = tablist;
@@ -62,6 +65,8 @@ public class RcbAPI extends JavaPlugin {
 
         RedisAccess.init();
 
+        initAllRankPermissions();
+
         //BattlePassUnit.getCurrentBattlePass().onEnableServer();
 
         Network.startTaskUpdateSlotsServer();
@@ -70,7 +75,6 @@ public class RcbAPI extends JavaPlugin {
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Network());
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ModModeratorTask(), 1, 20L);
-
         Bukkit.getScheduler().scheduleSyncRepeatingTask(RcbAPI.getInstance(), new FriendsGUIUpdater(), 2400L, 2400L);
 
         getLogger().info("RcbCore enabled");
@@ -79,6 +83,7 @@ public class RcbAPI extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        closeAllRankPermissions();
         for(Player player : Bukkit.getOnlinePlayers()){
             PacketReader reader = new PacketReader();
             reader.uninject(player);
@@ -120,6 +125,18 @@ public class RcbAPI extends JavaPlugin {
         getCommand("apmsgb").setExecutor(new SanctionMsgCommand());
     }
 
+    private void initAllRankPermissions(){
+        for(RankUnit rank : RankUnit.values()){
+            rank.onEnable();
+        }
+    }
+
+    private void closeAllRankPermissions(){
+        for(RankUnit rank : RankUnit.values()){
+            rank.onDisable();
+        }
+    }
+
     public Account getAccount(Player player){
         Account account = null;
 
@@ -128,9 +145,8 @@ public class RcbAPI extends JavaPlugin {
             final AccountProvider accountProvider = new AccountProvider(player);
             account = accountProvider.getAccount();
 
-        } catch (AccountNotFoundException exception) {
+        } catch (AccountNotFoundException | RedisException exception) {
             exception.printStackTrace();
-            player.kickPlayer(MessageUtil.ACCOUNT_NOT_FOUND.getMessage());
         }
         return account;
     }

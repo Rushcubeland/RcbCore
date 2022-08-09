@@ -44,6 +44,7 @@ public class UUIDFetcher {
                     Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(insertDashUUID(jsonObject.get("id").getAsString())));
                 }
             } catch (Exception e){
+                System.err.println("Error while getting UUID from name");
                 e.printStackTrace();
                 Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(null));
             }
@@ -64,6 +65,7 @@ public class UUIDFetcher {
                         Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(jsonObject.get("name").getAsString()));
                     }
                 } catch (Exception e){
+                    System.err.println("Error while getting name from UUID");
                     e.printStackTrace();
                     Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(null));
                 }

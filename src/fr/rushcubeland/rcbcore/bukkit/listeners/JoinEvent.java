@@ -38,38 +38,35 @@ public class JoinEvent implements Listener {
 
         player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(16.0D);
 
-        RcbAPI.getInstance().getAccount(player, new AsyncCallBack() {
-            @Override
-            public void onQueryComplete(Object result) {
+        RcbAPI.getInstance().getAccount(player, result -> {
 
-                Account account = (Account) result;
+            Account account = (Account) result;
 
-                initPermissions(player, account.getRank());
+            initPermissions(player, account.getRank());
 
-                PacketReader reader = new PacketReader();
-                reader.inject(player);
+            PacketReader reader = new PacketReader();
+            reader.inject(player);
 
-                if(ModModerator.isInModData(player.getUniqueId().toString())){
-                    e.setJoinMessage(null);
-                    player.setAllowFlight(true);
-                    player.setFlying(true);
-                    ModModerator.giveTools(player.getUniqueId().toString());
-                    for(Player pls : Bukkit.getOnlinePlayers()){
-                        if(!ModModerator.isInModData(pls.getUniqueId().toString())){
-                            pls.hidePlayer(RcbAPI.getInstance(), player);
-                        }
+            if(ModModerator.isInModData(player.getUniqueId().toString())){
+                e.setJoinMessage(null);
+                player.setAllowFlight(true);
+                player.setFlying(true);
+                ModModerator.giveTools(player.getUniqueId().toString());
+                for(Player pls : Bukkit.getOnlinePlayers()){
+                    if(!ModModerator.isInModData(pls.getUniqueId().toString())){
+                        pls.hidePlayer(RcbAPI.getInstance(), player);
                     }
                 }
-                else
-                {
-                    for(Player pls : Bukkit.getOnlinePlayers()){
-                        if(ModModerator.isInModData(pls.getUniqueId().toString())){
-                            player.hidePlayer(RcbAPI.getInstance(), pls);
-                        }
-                    }
-                }
-                taskFriendGUIGeneration(player);
             }
+            else
+            {
+                for(Player pls : Bukkit.getOnlinePlayers()){
+                    if(ModModerator.isInModData(pls.getUniqueId().toString())){
+                        player.hidePlayer(RcbAPI.getInstance(), pls);
+                    }
+                }
+            }
+            taskFriendGUIGeneration(player);
         });
     }
 
@@ -96,17 +93,14 @@ public class JoinEvent implements Listener {
 
     private void initPlayerPermissions(Player player){
         if(player != null){
-            RcbAPI.getInstance().getAccountPermissions(player, new AsyncCallBack() {
-                @Override
-                public void onQueryComplete(Object result) {
-                    APermissions aPermissions = (APermissions) result;
-                    if(aPermissions != null) {
-                        List<String> perms = aPermissions.getPermissions();
-                        if (perms != null) {
-                            for (String perm : perms) {
-                                if (perm != null) {
-                                    getPermissionAttachment(player).setPermission(perm, true);
-                                }
+            RcbAPI.getInstance().getAccountPermissions(player, result -> {
+                APermissions aPermissions = (APermissions) result;
+                if(aPermissions != null) {
+                    List<String> perms = aPermissions.getPermissions();
+                    if (perms != null) {
+                        for (String perm : perms) {
+                            if (perm != null) {
+                                getPermissionAttachment(player).setPermission(perm, true);
                             }
                         }
                     }

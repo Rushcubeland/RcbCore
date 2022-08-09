@@ -26,6 +26,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisException;
 
 import java.util.*;
 
@@ -179,7 +180,7 @@ public class RcbAPI extends Plugin {
             account = accountProvider.getAccount();
 
 
-        } catch (AccountNotFoundException exception) {
+        } catch (AccountNotFoundException | RedisException exception) {
             System.err.println(exception.getMessage());
             player.disconnect(new TextComponent(MessageUtil.ACCOUNT_NOT_FOUND.getMessage()));
         }

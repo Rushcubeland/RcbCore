@@ -42,6 +42,7 @@ public class UUIDFetcher {
             return insertDashUUID(jsonObject.get("id").getAsString());
 
         } catch (Exception e){
+            System.err.println("Error while getting UUID from name");
             e.printStackTrace();
         }
         return null;
@@ -60,6 +61,7 @@ public class UUIDFetcher {
             return jsonObject.get("name").getAsString();
 
         } catch (Exception e){
+            System.err.println("Error while getting name from UUID");
             e.printStackTrace();
         }
         return null;

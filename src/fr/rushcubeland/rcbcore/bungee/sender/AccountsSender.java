@@ -65,6 +65,7 @@ public class AccountsSender {
                     }
                     accounts.clear();
                 }
+                connection.commit();
             }
             catch (SQLException exception){
                 exception.printStackTrace();
@@ -310,6 +311,7 @@ public class AccountsSender {
                     }
                     accounts.clear();
                 }
+                connection.commit();
             }
             catch (SQLException exception){
                 exception.printStackTrace();
@@ -369,6 +371,7 @@ public class AccountsSender {
                     }
                     accounts.clear();
                 }
+                connection.commit();
             }
             catch (SQLException exception){
                 exception.printStackTrace();
