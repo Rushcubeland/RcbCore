@@ -2,42 +2,47 @@ package fr.rushcubeland.rcbcore.bukkit;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.commons.data.callbacks.AsyncCallBack;
+import fr.rushcubeland.rcbcore.bukkit.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bukkit.queue.QueueUnit;
 import org.bukkit.entity.Player;
 
 public class BukkitSend {
 
     public static void banToProxy(Player player, String targetname, long durationSeconds, String reason){
-        try {
-            String uuid = UUIDFetcher.getUUIDFromName(targetname);
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("Ban");
-            out.writeUTF(uuid);
-            out.writeLong(durationSeconds);
-            out.writeUTF(reason);
-            out.writeUTF(player.getName());
-            player.sendPluginMessage(RcbAPI.getInstance(), RcbAPI.channel, out.toByteArray());
-        }
-        catch (NullPointerException nullPointerException){
-            nullPointerException.getStackTrace();
-        }
+        UUIDFetcher.getUUIDFromName(targetname, new AsyncCallBack() {
+            @Override
+            public void onQueryComplete(Object result) {
+                String uuid = (String) result;
+                if(uuid != null){
+                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    out.writeUTF("Ban");
+                    out.writeUTF(uuid);
+                    out.writeLong(durationSeconds);
+                    out.writeUTF(reason);
+                    out.writeUTF(player.getName());
+                    player.sendPluginMessage(RcbAPI.getInstance(), RcbAPI.channel, out.toByteArray());
+                }
+            }
+        });
     }
 
     public static void muteToProxy(Player player, String targetname, long durationSeconds, String reason, String modName){
-        try {
-            String uuid = UUIDFetcher.getUUIDFromName(targetname);
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("Mute");
-            out.writeUTF(uuid);
-            out.writeLong(durationSeconds);
-            out.writeUTF(reason);
-            out.writeUTF(modName);
-            player.sendPluginMessage(RcbAPI.getInstance(), RcbAPI.channel, out.toByteArray());
-        }
-        catch (NullPointerException nullPointerException){
-            nullPointerException.getStackTrace();
-        }
+        UUIDFetcher.getUUIDFromName(targetname, new AsyncCallBack() {
+            @Override
+            public void onQueryComplete(Object result) {
+                String uuid = (String) result;
+                if(uuid != null){
+                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    out.writeUTF("Mute");
+                    out.writeUTF(uuid);
+                    out.writeLong(durationSeconds);
+                    out.writeUTF(reason);
+                    out.writeUTF(modName);
+                    player.sendPluginMessage(RcbAPI.getInstance(), RcbAPI.channel, out.toByteArray());
+                }
+            }
+        });
     }
 
     public static void kickToProxy(Player player, String targetname, String reason){

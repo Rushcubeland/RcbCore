@@ -1,7 +1,8 @@
 package fr.rushcubeland.rcbcore.bungee.commands;
 
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.commons.utils.MessageUtil;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import fr.rushcubeland.rcbcore.bungee.utils.TimeUnit;
 import net.md_5.bungee.api.CommandSender;
@@ -27,7 +28,7 @@ public class BanCommand extends Command {
             if(sender instanceof ProxiedPlayer){
                 ProxiedPlayer player = (ProxiedPlayer) sender;
                 if(!player.hasPermission(PermissionsUnit.BAN.getPermission()) && !player.hasPermission(PermissionsUnit.ALL.getPermission())){
-                    player.sendMessage(new TextComponent("§cVous n'avez pas la permission de faire ceci !"));
+                    player.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
                     return;
                 }
             }
@@ -42,7 +43,7 @@ public class BanCommand extends Command {
             if(target == null){
                 String uuids = UUIDFetcher.getUUIDFromName(targetName);
                 if(uuids == null){
-                    sender.sendMessage(new TextComponent("§cCe joueur n'existe pas !"));
+                    sender.sendMessage(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
                     return;
                 }
                 else {
@@ -79,7 +80,6 @@ public class BanCommand extends Command {
                 duration = Integer.parseInt(args[1].split(":")[0]);
             } catch (NumberFormatException e) {
                 sender.sendMessage(new TextComponent("§cLa valeur 'durée' doit être un nombre !"));
-
                 return;
             }
             if (!TimeUnit.existFromShortcut(args[1].split(":")[1])) {

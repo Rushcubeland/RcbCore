@@ -1,5 +1,6 @@
 package fr.rushcubeland.rcbcore.bungee.network;
 
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -24,7 +25,7 @@ public class Network {
         }
         else
         {
-            player.sendMessage(new TextComponent("§cVous etes déjà connecté à un Lobby !"));
+            player.sendMessage(new TextComponent(MessageUtil.ALREADY_CONNECTED_TO_LOBBY.getMessage()));
         }
     }
     public static ServerUnit getBestServer(ProxiedPlayer player, ServerGroup serverGroup){
@@ -80,7 +81,7 @@ public class Network {
             }
             else
             {
-                player.sendMessage(new TextComponent("§cAucun serveur trouvé, Veuillez contacter un membre du staff."));
+                player.sendMessage(new TextComponent(MessageUtil.NO_SERVERS_FOUND.getMessage()));
             }
         }
     }

@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.permissions.PermissionAttachment;
 
 public class QuitEvent implements Listener {
 
@@ -31,7 +32,10 @@ public class QuitEvent implements Listener {
         FriendsGUI.getInvCache().remove(player);
 
         if(JoinEvent.permissionMap.containsKey(player.getUniqueId())){
-            player.removeAttachment(JoinEvent.permissionMap.get(player.getUniqueId()));
+            PermissionAttachment attachment = JoinEvent.permissionMap.get(player.getUniqueId());
+            if(attachment != null){
+                player.removeAttachment(attachment);
+            }
             JoinEvent.permissionMap.remove(player.getUniqueId());
         }
         ReportMsgCommand.dataPlayers.remove(player);

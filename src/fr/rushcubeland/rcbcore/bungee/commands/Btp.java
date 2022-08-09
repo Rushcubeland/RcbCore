@@ -3,6 +3,7 @@ package fr.rushcubeland.rcbcore.bungee.commands;
 import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
 import fr.rushcubeland.commons.rank.RankUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.BungeeSend;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import net.md_5.bungee.api.ChatColor;
@@ -32,7 +33,7 @@ public class Btp extends Command {
             return;
         }
         if (!sender.hasPermission(PermissionsUnit.TELEPORT.getPermission()) && !sender.hasPermission(PermissionsUnit.ALL.getPermission())) {
-            sender.sendMessage(new TextComponent(ChatColor.RED + "Vous n'avez pas la permission de faire ceci !"));
+            sender.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
             return;
         }
         if (args.length < 1) {
@@ -47,7 +48,7 @@ public class Btp extends Command {
 
 
             if (args[0] != null && to == null) {
-                from.sendMessage(new TextComponent(ChatColor.RED + "Le joueur n'est pas en-ligne !"));
+                from.sendMessage(new TextComponent(MessageUtil.PLAYER_NOT_ONLINE.getMessage()));
 
                 return;
             }

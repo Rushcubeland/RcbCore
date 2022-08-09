@@ -6,6 +6,7 @@ import fr.rushcubeland.commons.data.redis.RedisAccess;
 import fr.rushcubeland.commons.data.sql.DatabaseManager;
 import fr.rushcubeland.commons.data.sql.SQL;
 import fr.rushcubeland.commons.rank.RankUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.commands.*;
 import fr.rushcubeland.rcbcore.bungee.listeners.*;
 import fr.rushcubeland.rcbcore.bungee.maintenance.Maintenance;
@@ -25,6 +26,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisException;
 
 import java.util.*;
 
@@ -62,6 +64,7 @@ public class RcbAPI extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ProxyPing());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ServerConnect());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new OnChat());
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new ServerKick());
 
         ServerGroup.initServerGroup();
 
@@ -177,9 +180,9 @@ public class RcbAPI extends Plugin {
             account = accountProvider.getAccount();
 
 
-        } catch (AccountNotFoundException exception) {
+        } catch (AccountNotFoundException | RedisException exception) {
             System.err.println(exception.getMessage());
-            player.disconnect(new TextComponent("Vous Compte n'a pas pu être trouvé"));
+            player.disconnect(new TextComponent(MessageUtil.ACCOUNT_NOT_FOUND.getMessage()));
         }
 
         return account;
@@ -214,7 +217,6 @@ public class RcbAPI extends Plugin {
 
         } catch (AccountNotFoundException exception) {
             System.err.println(exception.getMessage());
-            player.disconnect(new TextComponent("Vous Compte n'a pas pu être trouvé"));
         }
 
         return account;
@@ -232,7 +234,6 @@ public class RcbAPI extends Plugin {
 
         } catch (AccountNotFoundException exception) {
             System.err.println(exception.getMessage());
-            player.disconnect(new TextComponent("Vous Compte n'a pas pu être trouvé"));
         }
 
         return account;
@@ -267,7 +268,6 @@ public class RcbAPI extends Plugin {
 
         } catch (AccountNotFoundException exception) {
             System.err.println(exception.getMessage());
-            player.disconnect(new TextComponent("Vous Compte n'a pas pu être trouvé"));
         }
 
         return account;
@@ -302,7 +302,6 @@ public class RcbAPI extends Plugin {
 
         } catch (AccountNotFoundException exception) {
             System.err.println(exception.getMessage());
-            player.disconnect(new TextComponent("Vous Compte n'a pas pu être trouvé"));
         }
 
         return account;
@@ -337,7 +336,6 @@ public class RcbAPI extends Plugin {
 
         } catch (AccountNotFoundException exception) {
             System.err.println(exception.getMessage());
-            player.disconnect(new TextComponent("Vous Compte n'a pas pu être trouvé"));
         }
         return account;
     }

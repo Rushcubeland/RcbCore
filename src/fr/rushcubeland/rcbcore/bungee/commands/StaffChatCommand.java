@@ -2,6 +2,7 @@ package fr.rushcubeland.rcbcore.bungee.commands;
 
 import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -44,7 +45,7 @@ public class StaffChatCommand extends Command {
             }
             else
             {
-                player.sendMessage(new TextComponent("§cVous n'avez pas la permission de faire ceci !"));
+                player.sendMessage(new TextComponent(MessageUtil.NO_PERM.getMessage()));
             }
         }
     }

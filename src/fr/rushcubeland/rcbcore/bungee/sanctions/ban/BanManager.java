@@ -2,7 +2,7 @@ package fr.rushcubeland.rcbcore.bungee.sanctions.ban;
 
 import fr.rushcubeland.commons.data.sql.DatabaseManager;
 import fr.rushcubeland.commons.data.sql.SQL;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.sanctions.SanctionHistory;
 import fr.rushcubeland.rcbcore.bungee.utils.TimeUnit;
 import net.md_5.bungee.api.ProxyServer;

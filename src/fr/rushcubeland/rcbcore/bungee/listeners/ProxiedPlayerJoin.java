@@ -7,6 +7,7 @@ import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.data.exceptions.AccountNotFoundException;
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
 import fr.rushcubeland.commons.rank.RankUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import fr.rushcubeland.rcbcore.bungee.friends.Friend;
 import fr.rushcubeland.rcbcore.bungee.maintenance.Maintenance;
@@ -94,7 +95,7 @@ public class ProxiedPlayerJoin implements Listener {
 
             } catch (AccountNotFoundException exception) {
                 System.err.println(exception.getMessage());
-                player.disconnect(new TextComponent("§cVotre compte n'a pas été crée ou trouvé !"));
+                player.disconnect(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
             }
 
             ProxyServer.getInstance().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
@@ -105,7 +106,7 @@ public class ProxiedPlayerJoin implements Listener {
 
                 } catch (AccountNotFoundException exception) {
                 System.err.println(exception.getMessage());
-                player.disconnect(new TextComponent("§cVotre compte n'a pas été crée ou trouvé !"));
+                player.disconnect(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
             }
 
             try {
@@ -115,7 +116,7 @@ public class ProxiedPlayerJoin implements Listener {
 
             } catch (AccountNotFoundException exception) {
                 System.err.println(exception.getMessage());
-                player.disconnect(new TextComponent("§cVotre compte n'a pas été crée ou trouvé !"));
+                player.disconnect(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
             }
 
             try {
@@ -125,7 +126,7 @@ public class ProxiedPlayerJoin implements Listener {
 
             } catch (AccountNotFoundException exception) {
                 System.err.println(exception.getMessage());
-                player.disconnect(new TextComponent("§cVotre compte n'a pas été crée ou trouvé !"));
+                player.disconnect(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
             }
 
             try {
@@ -150,7 +151,7 @@ public class ProxiedPlayerJoin implements Listener {
 
             } catch (AccountNotFoundException exception) {
                 System.err.println(exception.getMessage());
-                player.disconnect(new TextComponent("§cVotre compte n'a pas été crée ou trouvé !"));
+                player.disconnect(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
             }
 
             try {
@@ -161,7 +162,7 @@ public class ProxiedPlayerJoin implements Listener {
 
             } catch (AccountNotFoundException exception) {
                 System.err.println(exception.getMessage());
-                player.disconnect(new TextComponent("§cVotre compte n'a pas été crée ou trouvé !"));
+                player.disconnect(new TextComponent(MessageUtil.UNKNOWN_PLAYER.getMessage()));
             }
         });
     }

@@ -4,7 +4,7 @@ import fr.rushcubeland.commons.AFriends;
 import fr.rushcubeland.commons.AOptions;
 import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.options.OptionUnit;
-import fr.rushcubeland.commons.utils.UUIDFetcher;
+import fr.rushcubeland.rcbcore.bungee.utils.UUIDFetcher;
 import fr.rushcubeland.rcbcore.bungee.RcbAPI;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;

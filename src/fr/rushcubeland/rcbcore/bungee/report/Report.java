@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.HashMap;
@@ -47,9 +48,9 @@ public class Report {
         TextComponent targetn = new TextComponent(target.getName());
         TextComponent playern = new TextComponent(player.getName());
         targetn.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/apmsg " + target.getName()));
-        targetn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("/apmsg "+ target.getName())));
+        targetn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("/apmsg "+ target.getName())));
         playern.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/apmsg " + player.getName()));
-        playern.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("/apmsg "+ player.getName())));
+        playern.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("/apmsg "+ player.getName())));
         mod.sendMessage((new ComponentBuilder(l2)).append(targetn).create());
         mod.sendMessage((new ComponentBuilder(l3)).append(playern).create());
         mod.sendMessage(new TextComponent("§fMessage signalé: §b" + message.replace(" ", " §b")));
@@ -63,9 +64,9 @@ public class Report {
         TextComponent targetn = new TextComponent(target.getName());
         TextComponent playern = new TextComponent(player.getName());
         targetn.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/btp " + target.getName()));
-        targetn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("/btp "+ target.getName())));
+        targetn.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("/btp "+ target.getName())));
         playern.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/btp " + player.getName()));
-        playern.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("/btp "+ player.getName())));
+        playern.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("/btp "+ player.getName())));
         mod.sendMessage((new ComponentBuilder(l2)).append(targetn).create());
         mod.sendMessage((new ComponentBuilder(l3)).append(playern).create());
         mod.sendMessage(new TextComponent("§fRaison: §b" + raison.replace(" ", " §b")));

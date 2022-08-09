@@ -4,6 +4,7 @@ import fr.rushcubeland.commons.Account;
 import fr.rushcubeland.commons.data.callbacks.AsyncCallBack;
 import fr.rushcubeland.commons.permissions.PermissionsUnit;
 import fr.rushcubeland.commons.rank.RankUnit;
+import fr.rushcubeland.commons.utils.MessageUtil;
 import fr.rushcubeland.rcbcore.bukkit.RcbAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -25,7 +26,7 @@ public class GMCommand implements CommandExecutor {
                     RankUnit rank = account.getRank();
                     if(label.equalsIgnoreCase("gamemode") || label.equalsIgnoreCase("gm")){
                         if(!player.hasPermission(PermissionsUnit.GAMEMODE.getPermission()) && !player.hasPermission(PermissionsUnit.ALL.getPermission())){
-                            player.sendMessage("§cVous n'avez pas la permission de faire ceci !");
+                            player.sendMessage(MessageUtil.NO_PERM.getMessage());
                         }
                         if(args.length == 0){
                             player.sendMessage("§cVeuillez spécifier un mode !");
@@ -77,24 +78,14 @@ public class GMCommand implements CommandExecutor {
                                             target.sendMessage("§6Vous etes désormais en mode §cspectateur §6par le biais de §f" + rank.getPrefix() +player.getDisplayName());
                                         }
                                     }
-                                    @Override
-                                    public void onQueryError(Exception e) {
-                                        e.printStackTrace();
-                                        target.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
-                                    }
                                 });
                             }
                             else
                             {
-                                player.sendMessage("§cVeuillez spécifier un joueur valide !");
+                                player.sendMessage(MessageUtil.SPECIFY_VALID_PLAYER.getMessage());
                             }
                         }
                     }
-                }
-                @Override
-                public void onQueryError(Exception e) {
-                    e.printStackTrace();
-                    player.kickPlayer("§cVotre compte n'a pas été trouvé, veuillez contacter un administrateur.");
                 }
             });
         }
