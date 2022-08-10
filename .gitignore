@@ -1,0 +1,11 @@
+*~
+/.gradle/*
+/build/*
+/.idea/*
+*.iml
+/build
+/bin
+.classpath
+.project
+/.settings/*
+/.nb-gradle/

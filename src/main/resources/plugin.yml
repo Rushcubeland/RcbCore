@@ -1,0 +1,19 @@
+name: RcbCore
+author: didi955
+version: 1.0-SNAPSHOT
+main: fr.rushcubeland.rcbcore.bukkit.RcbAPI
+api-version: 1.15
+database: true
+prefix: RcbCore
+commands:
+  gamemode:
+    description: change gamemode
+    aliases: [gm]
+  reportmsg:
+    description: suggest report msg
+  reportconfirm:
+    description: report msg
+  coins:
+    description: balance coins
+  apmsgb:
+    description: call sanction msg gui
