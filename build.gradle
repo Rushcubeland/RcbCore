@@ -6,9 +6,6 @@ group 'fr.rushcubeland.rcbcore'
 version '1.0-SNAPSHOT'
 
 repositories {
-    flatDir {
-        dirs 'libs'
-    }
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
@@ -50,4 +47,10 @@ jar {
         from 'ressources'
     }
 
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
