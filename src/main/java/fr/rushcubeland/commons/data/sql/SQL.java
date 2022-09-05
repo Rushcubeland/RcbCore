@@ -38,7 +38,7 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS StatsDAC (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
                     "wins INT, " +
                     "loses INT, " +
                     "nbParties INT, " +
@@ -50,7 +50,7 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS MaintenanceList (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
                     "INDEX (id));");
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Maintenance (" +
@@ -59,14 +59,14 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Cosmetics (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
-                    "current_particles VARCHAR(255), " +
-                    "current_pet VARCHAR(255), "+
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
+                    "current_particles VARCHAR(100), " +
+                    "current_pet VARCHAR(100), "+
                     "INDEX (id));");
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Stats (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
                     "parcours_timer BIGINT, " +
                     "firstconnection_ms BIGINT, " +
                     "lastconnection_ms BIGINT, " +
@@ -74,24 +74,24 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Accounts (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
-                    "primaryRank VARCHAR(255), " +
-                    "secondaryRank VARCHAR(255), " +
-                    "primaryRank_end BIGINT, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
+                    "specialRank VARCHAR(50), " +
+                    "secondaryRank VARCHAR(50), " +
+                    "specialRank_end BIGINT, " +
                     "secondaryRank_end BIGINT, " +
                     "coins BIGINT, " +
                     "INDEX (id));");
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Friends (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255), " +
-                    "friend VARCHAR(255), " +
+                    "uuid VARCHAR(36), " +
+                    "friend VARCHAR(36), " +
                     "PRIMARY KEY(uuid, friend), " +
                     "INDEX (id));");
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Options (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
                     "state_party_invite VARCHAR(16), " +
                     "state_friend_requests VARCHAR(16), " +
                     "state_chat VARCHAR(16), " +
@@ -101,21 +101,21 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Player_permissions (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255), " +
-                    "permission VARCHAR(255), " +
+                    "uuid VARCHAR(36), " +
+                    "permission VARCHAR(100), " +
                     "PRIMARY KEY(uuid, permission), " +
                     "INDEX (id));");
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Rank_permissions (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "grade VARCHAR(255), " +
-                    "permission VARCHAR(255)," +
+                    "grade VARCHAR(50), " +
+                    "permission VARCHAR(100)," +
                     "PRIMARY KEY(grade, permission), " +
                     "INDEX (id));");
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Bans (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
                     "start BIGINT, " +
                     "end BIGINT, " +
                     "reason VARCHAR(64), " +
@@ -124,7 +124,7 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Sanctions_history (" +
                     "`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-                    "uuid VARCHAR(255), " +
+                    "uuid VARCHAR(36), " +
                     "type VARCHAR(20), " +
                     "date_time LONG, " +
                     "duration LONG, " +
@@ -133,7 +133,7 @@ public class SQL {
 
             update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), "CREATE TABLE IF NOT EXISTS Mute (" +
                     "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "uuid VARCHAR(255) PRIMARY KEY, " +
+                    "uuid VARCHAR(36) PRIMARY KEY, " +
                     "start BIGINT, " +
                     "end BIGINT, " +
                     "reason VARCHAR(64), " +

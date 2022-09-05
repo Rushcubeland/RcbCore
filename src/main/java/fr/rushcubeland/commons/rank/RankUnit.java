@@ -7,30 +7,31 @@ import net.md_5.bungee.api.ChatColor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public enum RankUnit {
 
-    JOUEUR("Joueur", 50, "" + ChatColor.GRAY, ChatColor.GRAY),
-    VIP("VIP", 45,  ChatColor.YELLOW + "[VIP] " + ChatColor.WHITE, ChatColor.YELLOW),
-    VIPP("VIP+", 40,    ChatColor.DARK_PURPLE + "[VIP+] " + ChatColor.WHITE, ChatColor.DARK_PURPLE),
-    INFLUENCEUR("Influenceur", 38, ChatColor.AQUA + "[Influenceur] " + ChatColor.WHITE, ChatColor.AQUA),
-    INFLUENCEUSE("Influenceuse", 37, ChatColor.AQUA + "[Influenceuse] " + ChatColor.WHITE, ChatColor.AQUA),
-    AMI("Ami", 35, ChatColor.DARK_AQUA + "[Ami] " + ChatColor.WHITE, ChatColor.DARK_AQUA),
-    AMIE("Amie", 30, ChatColor.DARK_AQUA + "[Amie] " + ChatColor.WHITE, ChatColor.DARK_AQUA),
-    ASSISTANT("Assistant", 20, ChatColor.GREEN +"[Assistant] " + ChatColor.WHITE, ChatColor.GREEN),
-    ASSISTANTE("Assistante", 15, ChatColor.GREEN + "[Assistante] " + ChatColor.WHITE, ChatColor.GREEN),
-    DEVELOPPEUR("Développeur", 10, ChatColor.BLUE + "[Développeur] " + ChatColor.WHITE, ChatColor.BLUE),
-    DEVELOPPEUSE("Développeuse", 9, ChatColor.BLUE + "[Développeuse] " + ChatColor.WHITE, ChatColor.BLUE),
-    MODERATEUR("Modérateur", 8, ChatColor.GOLD + "[Modérateur] " + ChatColor.WHITE, ChatColor.GOLD),
-    MODERATRICE("Modératrice", 7, ChatColor.GOLD + "[Modératrice] " + ChatColor.WHITE, ChatColor.GOLD),
-    RESPMOD("RespMod", 5, ChatColor.GOLD + "[RespMod] " + ChatColor.WHITE, ChatColor.GOLD),
-    ADMINISTRATEUR("Admin", 0, ChatColor.DARK_RED + "[Admin] " + ChatColor.WHITE, ChatColor.DARK_RED);
+    JOUEUR("Joueur", 50, ChatColor.GRAY.toString(), ChatColor.GRAY, false),
+    VIP("VIP", 45,  ChatColor.YELLOW + "[VIP] " + ChatColor.WHITE, ChatColor.YELLOW, false),
+    VIPP("VIP+", 40,    ChatColor.DARK_PURPLE + "[VIP+] " + ChatColor.WHITE, ChatColor.DARK_PURPLE, false),
+    INFLUENCEUR("Influenceur", 38, ChatColor.AQUA + "[Influenceur] " + ChatColor.WHITE, ChatColor.AQUA, true),
+    INFLUENCEUSE("Influenceuse", 37, ChatColor.AQUA + "[Influenceuse] " + ChatColor.WHITE, ChatColor.AQUA, true),
+    AMI("Ami", 35, ChatColor.DARK_AQUA + "[Ami] " + ChatColor.WHITE, ChatColor.DARK_AQUA, true),
+    AMIE("Amie", 30, ChatColor.DARK_AQUA + "[Amie] " + ChatColor.WHITE, ChatColor.DARK_AQUA, true),
+    ASSISTANT("Assistant", 20, ChatColor.GREEN +"[Assistant] " + ChatColor.WHITE, ChatColor.GREEN, true),
+    ASSISTANTE("Assistante", 15, ChatColor.GREEN + "[Assistante] " + ChatColor.WHITE, ChatColor.GREEN, true),
+    DEVELOPPEUR("Développeur", 10, ChatColor.BLUE + "[Développeur] " + ChatColor.WHITE, ChatColor.BLUE, true),
+    DEVELOPPEUSE("Développeuse", 9, ChatColor.BLUE + "[Développeuse] " + ChatColor.WHITE, ChatColor.BLUE, true),
+    MODERATEUR("Modérateur", 8, ChatColor.GOLD + "[Modérateur] " + ChatColor.WHITE, ChatColor.GOLD, true),
+    MODERATRICE("Modératrice", 7, ChatColor.GOLD + "[Modératrice] " + ChatColor.WHITE, ChatColor.GOLD, true),
+    RESPMOD("RespMod", 5, ChatColor.GOLD + "[RespMod] " + ChatColor.WHITE, ChatColor.GOLD, true),
+    ADMINISTRATEUR("Admin", 0, ChatColor.DARK_RED + "[Admin] " + ChatColor.WHITE, ChatColor.DARK_RED, true);
 
     private final String name;
     private final int power;
     private final String prefix;
     private final ChatColor color;
+
+    private final boolean isSpecial;
     private ArrayList<String> permissions = new ArrayList<>();
 
     public static final int FIRST_LEVEL_RANK = 50;
@@ -38,11 +39,12 @@ public enum RankUnit {
     public static final int FIRST_LEVEL_STAFF_RANK= 20;
 
 
-    RankUnit(String name, int power, String prefix, ChatColor color) {
+    RankUnit(String name, int power, String prefix, ChatColor color, boolean isSpecial) {
         this.name = name;
         this.power = power;
         this.prefix = prefix;
         this.color = color;
+        this.isSpecial = isSpecial;
     }
 
     public static RankUnit getByName(String name){
@@ -90,6 +92,14 @@ public enum RankUnit {
 
     public void setPermissions(ArrayList<String> permissions) {
         this.permissions = permissions;
+    }
+
+    public boolean isSpecial() {
+        return isSpecial;
+    }
+
+    public ChatColor getColor() {
+        return color;
     }
 
     private ArrayList<String> getDataofRankPermissionsFromMySQL(){

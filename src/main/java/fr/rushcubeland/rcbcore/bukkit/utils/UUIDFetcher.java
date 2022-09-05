@@ -39,7 +39,7 @@ public class UUIDFetcher {
             try {
                 URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);
                 InputStreamReader reader = new InputStreamReader(url.openStream());
-                JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
+                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
                 if(jsonObject != null){
                     Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(insertDashUUID(jsonObject.get("id").getAsString())));
                 }
@@ -52,23 +52,20 @@ public class UUIDFetcher {
     }
 
     public static void getNameFromUUID(UUID uuid, final AsyncCallBack callBack){
-        Bukkit.getScheduler().runTaskAsynchronously(RcbAPI.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                String uuidf = deleteDashUUID(uuid.toString());
-                try {
-                    URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuidf
-                            + "?unsigned=false");
-                    InputStreamReader reader = new InputStreamReader(url.openStream());
-                    JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
-                    if(jsonObject != null){
-                        Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(jsonObject.get("name").getAsString()));
-                    }
-                } catch (Exception e){
-                    System.err.println("Error while getting name from UUID");
-                    e.printStackTrace();
-                    Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(null));
+        Bukkit.getScheduler().runTaskAsynchronously(RcbAPI.getInstance(), () -> {
+            String uuidf = deleteDashUUID(uuid.toString());
+            try {
+                URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuidf
+                        + "?unsigned=false");
+                InputStreamReader reader = new InputStreamReader(url.openStream());
+                JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+                if(jsonObject != null){
+                    Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(jsonObject.get("name").getAsString()));
                 }
+            } catch (Exception e){
+                System.err.println("Error while getting name from UUID");
+                e.printStackTrace();
+                Bukkit.getScheduler().runTask(RcbAPI.getInstance(), () -> callBack.onQueryComplete(null));
             }
         });
     }

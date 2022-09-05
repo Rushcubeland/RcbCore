@@ -57,7 +57,7 @@ public class WorldManager {
     public static void deleteWorld(String worldName){
         World world = Bukkit.getWorld(worldName);
         File file = new File(worldName);
-        if(file == null || world == null){
+        if(world == null){
             return;
         }
         Bukkit.unloadWorld(worldName, false);
@@ -72,13 +72,11 @@ public class WorldManager {
     public static boolean deleteWorld(File path){
         if(path.exists()){
             File[] files = path.listFiles();
-            for(int x = 0; x < files.length; x++){
-                if(files[x].isDirectory()){
-                    deleteWorld(files[x]);
-                }
-                else
-                {
-                    files[x].delete();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteWorld(file);
+                } else {
+                    file.delete();
                 }
             }
         }

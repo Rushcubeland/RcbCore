@@ -92,11 +92,11 @@ public class AccountProvider {
             if(rs.next()){
 
                 RankUnit rank = null;
-                if(!rs.getString("primaryRank").equals("null")){
-                    rank = RankUnit.getByName(rs.getString("primaryRank"));
+                if(rs.getString("specialRank") != null){
+                    rank = RankUnit.getByName(rs.getString("specialRank"));
                 }
                 final RankUnit rank2 = RankUnit.getByName(rs.getString("secondaryRank"));
-                final long rank_end = rs.getLong("primaryRank_end");
+                final long rank_end = rs.getLong("specialRank_end");
                 final long rank2_end = rs.getLong("secondaryRank_end");
                 final long coins = rs.getLong("coins");
 
@@ -125,8 +125,8 @@ public class AccountProvider {
 
         try {
 
-            SQL.update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), String.format("INSERT INTO Accounts (uuid, primaryRank, secondaryRank, primaryRank_end, secondaryRank_end, coins) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
-                    uuid.toString(), "null", account.getSecondaryRank().getName(), account.getPrimaryRank_end(), account.getSecondaryRank_end(), account.getCoins()));
+            SQL.update(DatabaseManager.Main_BDD.getDatabaseAccess().getConnection(), String.format("INSERT INTO Accounts (uuid, specialRank, secondaryRank, specialRank_end, secondaryRank_end, coins) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                    uuid.toString(), null, account.getSecondaryRank().getName(), account.getSpecialRank_end(), account.getSecondaryRank_end(), account.getCoins()));
 
         } catch (SQLException exception) {
             exception.printStackTrace();

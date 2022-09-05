@@ -10,6 +10,7 @@ import org.redisson.api.RBucket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -36,21 +37,22 @@ public class AccountsSender {
                 connection.setAutoCommit(false);
                 Iterable<String> keys = RedisAccess.INSTANCE.getRedissonClient().getKeys().getKeysByPattern(pattern);
                 preparedStatement = connection.prepareStatement(
-                        "UPDATE Accounts SET uuid=?, primaryRank=?, secondaryRank=?, primaryRank_end=?, secondaryRank_end=?, coins=? WHERE uuid=?");
+                        "UPDATE Accounts SET uuid=?, specialRank=?, secondaryRank=?, specialRank_end=?, secondaryRank_end=?, coins=? WHERE uuid=?");
                 for (String key : keys) {
                     RBucket<Account> bucket = RedisAccess.INSTANCE.getRedissonClient().getBucket(key);
                     accounts.add(bucket);
                     Account account = bucket.get();
                     if (account != null) {
-
-                        String primaryName = "null";
-                        if (account.getPrimaryRank() != null) {
-                            primaryName = account.getPrimaryRank().getName();
+                        if (account.getSpecialRank() != null) {
+                            preparedStatement.setString(2, account.getSpecialRank().getName());
+                        }
+                        else
+                        {
+                            preparedStatement.setNull(2, Types.VARCHAR);
                         }
                         preparedStatement.setString(1, account.getUuid().toString());
-                        preparedStatement.setString(2, primaryName);
                         preparedStatement.setString(3, account.getSecondaryRank().getName());
-                        preparedStatement.setLong(4, account.getPrimaryRank_end());
+                        preparedStatement.setLong(4, account.getSpecialRank_end());
                         preparedStatement.setLong(5, account.getSecondaryRank_end());
                         preparedStatement.setLong(6, account.getCoins());
                         preparedStatement.setString(7, account.getUuid().toString());
@@ -167,7 +169,7 @@ public class AccountsSender {
                 for (String key : keys) {
                     RBucket<APermissions> bucket = RedisAccess.INSTANCE.getRedissonClient().getBucket(key);
                     accounts.add(bucket);
-                    APermissions account = bucket.get();;
+                    APermissions account = bucket.get();
                     if (account != null) {
                         PreparedStatement preparedStatement2 = connection.prepareStatement(
                                 "DELETE FROM Player_permissions WHERE uuid=?");

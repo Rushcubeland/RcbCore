@@ -39,6 +39,9 @@ public class AFriends implements Cloneable {
     }
 
     public void addFriend(UUID uuid){
+        if(hasReachedMaxFriends()){
+            throw new UnsupportedOperationException("You have reached the maximum number of friends");
+        }
         if(!friends.contains(uuid)){
             friends.add(uuid);
         }
@@ -53,11 +56,7 @@ public class AFriends implements Cloneable {
     }
 
     public boolean hasReachedMaxFriends(){
-        int a = 0;
-        for(UUID ignored : friends){
-            a = a+1;
-        }
-        return maxFriends > a;
+        return friends.size() >= this.maxFriends;
     }
 
     public void setUuid(UUID uuid) {

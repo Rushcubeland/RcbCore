@@ -1,7 +1,6 @@
 package fr.rushcubeland.rcbcore.bukkit.tools;
 
 import fr.rushcubeland.commons.Account;
-import fr.rushcubeland.commons.data.callbacks.AsyncCallBack;
 import fr.rushcubeland.commons.rank.RankUnit;
 import fr.rushcubeland.rcbcore.bukkit.RcbAPI;
 import net.minecraft.server.v1_15_R1.ChatComponentText;
@@ -42,21 +41,15 @@ public class Tablist {
 
     public void setTabListPlayer(Player player){
 
-        Team value = null;
-
-        RcbAPI.getInstance().getAccount(player, new AsyncCallBack(){
-
-            @Override
-            public void onQueryComplete(Object result) {
-                Team value;
-                Account account = (Account) result;
-                for(Team team : teams){
-                    if(team.getName().equals(account.getRank().getPower().toString())){
-                        value = team;
-                        player.setScoreboard(scoreboard);
-                        value.addEntry(player.getName());
-                        break;
-                    }
+        RcbAPI.getInstance().getAccount(player, result -> {
+            Team value1;
+            Account account = (Account) result;
+            for(Team team : teams){
+                if(team.getName().equals(account.getRank().getPower().toString())){
+                    value1 = team;
+                    player.setScoreboard(scoreboard);
+                    value1.addEntry(player.getName());
+                    break;
                 }
             }
         });
@@ -78,7 +71,7 @@ public class Tablist {
             team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
         }
         Team teamNPC = scoreboard.registerNewTeam(Integer.toString(9999));
-        //teamNPC.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+        teamNPC.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
         for(NPC npc : NPC.getNPCs()){
             teamNPC.addEntry(npc.getNpc().getName());
         }

@@ -7,9 +7,9 @@ import java.util.UUID;
 public class Account implements Cloneable {
 
     private UUID uuid;
-    private RankUnit primaryRank;
+    private RankUnit specialRank;
     private RankUnit secondaryRank;
-    private long primaryRank_end;
+    private long specialRank_end;
     private long secondaryRank_end;
     private boolean state;
     private String server;
@@ -18,17 +18,17 @@ public class Account implements Cloneable {
     public Account() {
     }
 
-    public Account(UUID uuid, RankUnit primaryRank, RankUnit secondaryRank, long coins) {
-        this(uuid, primaryRank, secondaryRank, -1, -1, coins);
+    public Account(UUID uuid, RankUnit specialRank, RankUnit secondaryRank, long coins) {
+        this(uuid, specialRank, secondaryRank, -1, -1, coins);
         this.state = false;
     }
 
-    public Account(UUID uuid, RankUnit primaryRank, RankUnit secondaryRank,  long primaryRank_end, long secondaryRank_end, long coins) {
+    public Account(UUID uuid, RankUnit specialRank, RankUnit secondaryRank,  long specialRank_end, long secondaryRank_end, long coins) {
         this.uuid = uuid;
-        this.primaryRank = primaryRank;
+        this.specialRank = specialRank;
         this.secondaryRank = secondaryRank;
         this.coins = coins;
-        this.primaryRank_end = primaryRank_end;
+        this.specialRank_end = specialRank_end;
         this.secondaryRank_end = secondaryRank_end;
         this.state = false;
     }
@@ -42,18 +42,32 @@ public class Account implements Cloneable {
     }
 
     public long getRank_end() {
-        if(primaryRank == null){
+        if(specialRank == null){
             return secondaryRank_end;
         }
-        return primaryRank_end;
+        return specialRank_end;
     }
 
     public void setRank(RankUnit rank) {
+        if(rank == null){
+            throw new IllegalArgumentException("Rank can't be null");
+        }
+        if(rank.isSpecial()){
+            setSpecialRank(rank);
+            return;
+        }
         secondaryRank = rank;
         secondaryRank_end = -1;
     }
 
     public void setRank(RankUnit rank, long seconds) {
+        if(rank == null){
+            throw new IllegalArgumentException("Rank can't be null");
+        }
+        if(rank.isSpecial()){
+            setSpecialRank(rank, seconds);
+            return;
+        }
         if(seconds <= 0){
             setRank(rank);
         }
@@ -64,8 +78,36 @@ public class Account implements Cloneable {
         }
     }
 
-    public RankUnit getPrimaryRank() {
-        return primaryRank;
+    public void removeSpecialRank(){
+        this.specialRank = null;
+        this.specialRank_end = -1;
+    }
+
+    private void setSpecialRank(RankUnit rank) {
+        if(!rank.isSpecial()){
+            throw new IllegalArgumentException("The rank must be special to be primary");
+        }
+        specialRank = rank;
+        specialRank_end = -1;
+    }
+
+    private void setSpecialRank(RankUnit rank, long seconds) {
+        if(!rank.isSpecial()){
+            throw new IllegalArgumentException("The rank must be special to be primary");
+        }
+        if(seconds <= 0){
+            setSpecialRank(rank);
+        }
+        else
+        {
+            specialRank = rank;
+            this.specialRank_end = seconds*1000 + System.currentTimeMillis();
+        }
+    }
+
+
+    public RankUnit getSpecialRank() {
+        return specialRank;
     }
 
     public RankUnit getSecondaryRank() {
@@ -73,14 +115,14 @@ public class Account implements Cloneable {
     }
 
     public RankUnit getRank(){
-        if(primaryRank == null){
+        if(specialRank == null){
             return secondaryRank;
         }
-        return primaryRank;
+        return specialRank;
     }
 
-    public long getPrimaryRank_end() {
-        return primaryRank_end;
+    public long getSpecialRank_end() {
+        return specialRank_end;
     }
 
     public long getSecondaryRank_end() {
@@ -95,8 +137,8 @@ public class Account implements Cloneable {
         this.coins = coins;
     }
 
-    public boolean primaryRankIsTemporary(){
-        return primaryRank_end != -1;
+    public boolean specialRankIsTemporary(){
+        return specialRank_end != -1;
     }
 
     public boolean secondaryRankIsTemporary(){
@@ -127,12 +169,11 @@ public class Account implements Cloneable {
     }
 
     public boolean RankIsValid(){
-        if(primaryRank != null){
-            if(!primaryRankIsValid()){
-                primaryRank = null;
-                primaryRank_end = -1;
+        if(specialRank != null){
+            if(!specialRankIsValid()){
+                specialRank = null;
+                specialRank_end = -1;
                 return false;
-
             }
         }
         else if(!secondaryRankIsValid()){
@@ -143,12 +184,32 @@ public class Account implements Cloneable {
         return true;
     }
 
-    public boolean primaryRankIsValid(){
-        return primaryRank_end != -1 && primaryRank_end > System.currentTimeMillis();
+    public boolean specialRankIsValid(){
+        return specialRank_end != -1 && specialRank_end > System.currentTimeMillis();
     }
 
     public boolean secondaryRankIsValid(){
         return secondaryRank_end != -1 && secondaryRank_end > System.currentTimeMillis();
+    }
+
+    public void removeCoins(long coins){
+        if(this.coins - coins >= 0L){
+            this.coins -= coins;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Coins can't be negative");
+        }
+    }
+
+    public void addCoins(long coins){
+        if(this.coins + coins >= 0L){
+            this.coins += coins;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Coins can't be negative");
+        }
     }
 
     public Account clone(){

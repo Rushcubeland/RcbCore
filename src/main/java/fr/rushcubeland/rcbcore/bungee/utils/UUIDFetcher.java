@@ -35,7 +35,7 @@ public class UUIDFetcher {
         try {
             URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);
             InputStreamReader reader = new InputStreamReader(url.openStream());
-            JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             if(jsonObject == null){
                 return null;
             }
@@ -54,7 +54,7 @@ public class UUIDFetcher {
             URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuidf
                     + "?unsigned=false");
             InputStreamReader reader = new InputStreamReader(url.openStream());
-            JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             if(jsonObject == null){
                 return null;
             }

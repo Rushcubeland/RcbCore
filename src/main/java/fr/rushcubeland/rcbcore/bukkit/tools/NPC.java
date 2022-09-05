@@ -27,7 +27,7 @@ public class NPC {
     private World world;
     private Location location;
     private EntityPlayer npc;
-    private GameProfile gameProfile;
+    private final GameProfile gameProfile;
     private String[] property;
 
     private final HashMap<EnumItemSlot, ItemStack> equiments = new HashMap<>();
@@ -127,6 +127,15 @@ public class NPC {
         Reflection.sendPacket(new PacketPlayOutEntityDestroy(this.npc.getId()));
     }
 
+    public static void deleteAll(){
+        ListIterator<NPC> iterator = npcs.listIterator();
+        while(iterator.hasNext()){
+            NPC npc = iterator.next();
+            npc.destroy();
+            iterator.remove();
+        }
+    }
+
     public void delete(){
         destroy();
         npcs.remove(this);
@@ -190,7 +199,7 @@ public class NPC {
                 uuid = UUIDFetcher.deleteDashUUID(uuid);
                 URL url2 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false");
                 InputStreamReader reader2 = new InputStreamReader(url2.openStream());
-                JsonObject property = new JsonParser().parse(reader2).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
+                JsonObject property = JsonParser.parseReader(reader2).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
                 String texture = property.get("value").getAsString();
                 String signature = property.get("signature").getAsString();
                 return new String[]{texture, signature};
