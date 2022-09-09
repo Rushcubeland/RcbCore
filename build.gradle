@@ -6,9 +6,6 @@ group 'fr.rushcubeland.rcbcore'
 version '1.0-SNAPSHOT'
 
 repositories {
-    maven {
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
     mavenCentral()
     mavenLocal()
 }
