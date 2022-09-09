@@ -11,8 +11,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot:1.15.2-R0.1-SNAPSHOT'
-    compileOnly files('libs/BungeeCord.jar')
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'org.redisson:redisson:3.17.6'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
