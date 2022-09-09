@@ -19,7 +19,7 @@ public class RedisAccess {
     }
 
     public static void init(){
-        new RedisAccess(new RedisCredentials("127.0.0.1", "*********", 6379));
+        new RedisAccess(new RedisCredentials("192.168.1.2", "********", 6379));
     }
 
     public static void close(){
@@ -30,7 +30,7 @@ public class RedisAccess {
         final Config config = new Config();
 
         config.setCodec(new JsonJacksonCodec());
-        //config.setTransportMode(TransportMode.EPOLL);
+        config.setTransportMode(TransportMode.EPOLL);
         config.setThreads(2);
         config.setNettyThreads(2);
         config.useSingleServer()
