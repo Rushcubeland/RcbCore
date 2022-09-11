@@ -37,7 +37,7 @@ public class RcbAPI extends Plugin {
     private final List<Party> parties = new ArrayList<>();
     private final List<AParty> accountParty = new ArrayList<>();
 
-    private final HashMap<ProxiedPlayer, ProxiedPlayer> mpData = new HashMap<>();
+    private final Map<ProxiedPlayer, ProxiedPlayer> mpData = new HashMap<>();
 
     public final static String channel = "rcbapi:main";
 
@@ -83,8 +83,7 @@ public class RcbAPI extends Plugin {
         ProxyServer.getInstance().getScheduler().schedule(this, new CheckMuteStateTask(), 1, 3, java.util.concurrent.TimeUnit.SECONDS);
 
         // START CUSTOM WRITE BEHIND CACHING STRATEGIE
-        AccountsSender accountSender = new AccountsSender();
-        accountSender.start();
+        AccountsSender.start();
 
     }
 
@@ -95,6 +94,8 @@ public class RcbAPI extends Plugin {
         getMuteManager().update();
 
         Maintenance.stopMaintenanceSystem();
+
+        AccountsSender.forceSend();
 
         DatabaseManager.closeAllDatabaseConnection();
 
@@ -397,7 +398,7 @@ public class RcbAPI extends Plugin {
         return accountParty;
     }
 
-    public HashMap<ProxiedPlayer, ProxiedPlayer> getMpData() {
+    public Map<ProxiedPlayer, ProxiedPlayer> getMpData() {
         return mpData;
     }
 

@@ -17,16 +17,27 @@ import java.util.concurrent.TimeUnit;
 
 public class AccountsSender {
 
-    public void start(){
-        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), this::sendAccountData, 1, 1, TimeUnit.MINUTES);
-        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), this::sendStatsData, 1, 1, TimeUnit.MINUTES);
-        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), this::sendStatsDacData, 1, 1, TimeUnit.MINUTES);
-        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), this::sendOptionsData, 1, 1, TimeUnit.MINUTES);
-        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), this::sendFriendsAccountData, 1, 1, TimeUnit.MINUTES);
-        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), this::sendPermissionsData, 1, 1, TimeUnit.MINUTES);
+    public static void start(){
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendAccountData, 1, 1, TimeUnit.MINUTES);
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendStatsData, 1, 1, TimeUnit.MINUTES);
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendStatsDacData, 1, 1, TimeUnit.MINUTES);
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendOptionsData, 1, 1, TimeUnit.MINUTES);
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendFriendsAccountData, 1, 1, TimeUnit.MINUTES);
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendPermissionsData, 1, 1, TimeUnit.MINUTES);
+        RcbAPI.getInstance().getProxy().getScheduler().schedule(RcbAPI.getInstance(), AccountsSender::sendCosmeticsData, 1, 1, TimeUnit.MINUTES);
     }
 
-    private void sendAccountData() {
+    public static void forceSend(){
+        sendAccountData();
+        sendStatsData();
+        sendStatsDacData();
+        sendOptionsData();
+        sendFriendsAccountData();
+        sendCosmeticsData();
+        sendPermissionsData();
+    }
+
+    private static void sendAccountData() {
         ArrayList<RBucket<Account>> accounts = new ArrayList<>();
         RcbAPI.getInstance().getProxy().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
             String pattern = AccountProvider.REDIS_KEY + "*";
@@ -92,7 +103,7 @@ public class AccountsSender {
         });
     }
 
-    private void sendFriendsAccountData(){
+    private static void sendFriendsAccountData(){
         ArrayList<RBucket<AFriends>> accounts = new ArrayList<>();
         RcbAPI.getInstance().getProxy().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
             String pattern = FriendsProvider.REDIS_KEY + "*";
@@ -154,7 +165,7 @@ public class AccountsSender {
         });
     }
 
-    private void sendPermissionsData(){
+    private static void sendPermissionsData(){
         ArrayList<RBucket<APermissions>> accounts = new ArrayList<>();
         RcbAPI.getInstance().getProxy().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
             String pattern = PermissionsProvider.REDIS_KEY + "*";
@@ -215,11 +226,11 @@ public class AccountsSender {
         });
     }
 
-    private void sendCosmeticsData(){
-        // TO DO
+    private static void sendCosmeticsData(){
+        // TODO
     }
 
-    private void sendStatsData(){
+    private static void sendStatsData(){
         ArrayList<RBucket<AStats>> accounts = new ArrayList<>();
         RcbAPI.getInstance().getProxy().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
             String pattern = StatsProvider.REDIS_KEY + "*";
@@ -276,7 +287,7 @@ public class AccountsSender {
         });
     }
 
-    private void sendStatsDacData(){
+    private static void sendStatsDacData(){
         ArrayList<RBucket<AStatsDAC>> accounts = new ArrayList<>();
         RcbAPI.getInstance().getProxy().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
             String pattern = StatsDACProvider.REDIS_KEY + "*";
@@ -338,7 +349,7 @@ public class AccountsSender {
         });
     }
 
-    private void sendOptionsData(){
+    private static void sendOptionsData(){
         ArrayList<RBucket<AOptions>> accounts = new ArrayList<>();
         RcbAPI.getInstance().getProxy().getScheduler().runAsync(RcbAPI.getInstance(), () -> {
             String pattern = OptionsProvider.REDIS_KEY + "*";
